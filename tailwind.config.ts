@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,8 +26,18 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: '#FF4E00',
+					foreground: '#FFFFFF',
+					50: '#FFF2ED',
+					100: '#FFE5DA',
+					200: '#FFCBB7',
+					300: '#FFB194',
+					400: '#FF9771',
+					500: '#FF7D4E',
+					600: '#FF642B',
+					700: '#FF4E00',
+					800: '#CC3E00',
+					900: '#992F00'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -51,6 +62,19 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				navy: {
+					DEFAULT: '#1A2238',
+					50: '#E9EBEF',
+					100: '#D3D7DF',
+					200: '#A7B0BF',
+					300: '#7B889F',
+					400: '#505B7F',
+					500: '#1A2238',
+					600: '#151B2E',
+					700: '#101524',
+					800: '#0B0F1A',
+					900: '#05070C'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -84,11 +108,22 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'fade-in': {
+					"0%": {
+						opacity: "0",
+						transform: "translateY(10px)"
+					},
+					"100%": {
+						opacity: "1",
+						transform: "translateY(0)"
+					}
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
 			}
 		}
 	},
