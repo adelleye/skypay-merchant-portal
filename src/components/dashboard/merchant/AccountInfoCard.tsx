@@ -49,9 +49,11 @@ const AccountInfoCard = () => {
             <div>
               <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>Business Address</span>
+                <span>Business Type</span>
               </div>
-              <p className="mt-1">{merchantUser.address}</p>
+              <p className="mt-1">
+                {merchantUser.isRegisteredWithCAC === "yes" ? "CAC Registered Business" : "Non-Registered Business"}
+              </p>
             </div>
           </div>
         </div>
