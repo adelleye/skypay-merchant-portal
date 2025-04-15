@@ -6,9 +6,23 @@ export type MerchantUser = {
   id: string;
   email: string;
   businessName: string;
-  contactName: string;
   phoneNumber: string;
-  address: string;
+  isRegisteredWithCAC: string;
+  ownerFirstName: string;
+  ownerLastName: string;
+  bvn: string;
+  // Non-registered business fields
+  idType?: string;
+  idNumber?: string;
+  idDocumentUrl?: string;
+  personalBankAccount?: string;
+  personalBankName?: string;
+  // Registered business fields
+  cacNumber?: string;
+  directorName?: string;
+  directorBVN?: string;
+  businessBankAccount?: string;
+  businessBankName?: string;
   approved: boolean;
   role: "merchant";
 };
@@ -26,7 +40,7 @@ type AuthContextType = {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (userData: Omit<MerchantUser, "id" | "approved" | "role">) => Promise<void>;
+  register: (userData: Omit<MerchantUser, "id" | "approved" | "role" | "idDocumentUrl">) => Promise<void>;
   logout: () => void;
 };
 
@@ -44,9 +58,15 @@ const mockUsers: User[] = [
     id: "2",
     email: "merchant@example.com",
     businessName: "Sample Business",
-    contactName: "John Merchant",
     phoneNumber: "555-1234",
-    address: "123 Business St, City",
+    isRegisteredWithCAC: "yes",
+    ownerFirstName: "John",
+    ownerLastName: "Merchant",
+    bvn: "12345678901",
+    cacNumber: "RC123456",
+    directorName: "John Merchant",
+    businessBankAccount: "0123456789",
+    businessBankName: "access",
     approved: true,
     role: "merchant"
   },
@@ -54,9 +74,16 @@ const mockUsers: User[] = [
     id: "3",
     email: "pending@example.com",
     businessName: "Pending Company",
-    contactName: "Jane Pending",
     phoneNumber: "555-5678",
-    address: "456 Waiting Ave, Town",
+    isRegisteredWithCAC: "no",
+    ownerFirstName: "Jane",
+    ownerLastName: "Pending",
+    bvn: "10987654321",
+    idType: "nin",
+    idNumber: "12345678901",
+    idDocumentUrl: "/placeholder.svg",
+    personalBankAccount: "9876543210",
+    personalBankName: "gtb",
     approved: false,
     role: "merchant"
   }
@@ -92,7 +119,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const register = async (userData: Omit<MerchantUser, "id" | "approved" | "role">) => {
+  const register = async (userData: Omit<MerchantUser, "id" | "approved" | "role" | "idDocumentUrl">) => {
     // Simulate API call
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
@@ -104,6 +131,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           const newUser: MerchantUser = {
             ...userData,
             id: `m-${Date.now()}`,
+            idDocumentUrl: "/placeholder.svg", // In a real app, this would be the uploaded file URL
             approved: false,
             role: "merchant"
           };
