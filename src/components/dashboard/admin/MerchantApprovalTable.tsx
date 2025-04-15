@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
@@ -25,9 +24,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTabs,
-  DialogTab,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   CheckCircle,
   XCircle,
@@ -38,7 +36,6 @@ import {
   CreditCard,
   FileText
 } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type MerchantStatus = "pending" | "approved" | "rejected";
 
@@ -52,13 +49,11 @@ type Merchant = {
   ownerFirstName: string;
   ownerLastName: string;
   bvn: string;
-  // Non-registered business fields
   idType?: string;
   idNumber?: string;
   idDocumentUrl?: string;
   personalBankAccount?: string;
   personalBankName?: string;
-  // Registered business fields
   cacNumber?: string;
   directorName?: string;
   directorBVN?: string;
@@ -68,7 +63,6 @@ type Merchant = {
   status: MerchantStatus;
 };
 
-// Mock merchant data with updated fields
 const mockMerchants: Merchant[] = [
   {
     id: "m-123456",
@@ -85,7 +79,7 @@ const mockMerchants: Merchant[] = [
     directorBVN: "12345678901",
     businessBankAccount: "1234567890",
     businessBankName: "First Bank",
-    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
+    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 2),
     status: "pending"
   },
   {
@@ -103,7 +97,7 @@ const mockMerchants: Merchant[] = [
     idDocumentUrl: "/placeholder.svg",
     personalBankAccount: "2345678901",
     personalBankName: "GTBank",
-    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 5), // 5 hours ago
+    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 5),
     status: "pending"
   },
   {
@@ -121,7 +115,7 @@ const mockMerchants: Merchant[] = [
     directorBVN: "34567890123",
     businessBankAccount: "3456789012",
     businessBankName: "Access Bank",
-    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 12), // 12 hours ago
+    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 12),
     status: "pending"
   },
   {
@@ -139,7 +133,7 @@ const mockMerchants: Merchant[] = [
     idDocumentUrl: "/placeholder.svg",
     personalBankAccount: "4567890123",
     personalBankName: "Zenith Bank",
-    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 24), // 24 hours ago
+    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 24),
     status: "pending"
   },
   {
@@ -157,12 +151,11 @@ const mockMerchants: Merchant[] = [
     directorBVN: "67890123456",
     businessBankAccount: "5678901234",
     businessBankName: "UBA",
-    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 36), // 36 hours ago
+    registrationDate: new Date(Date.now() - 1000 * 60 * 60 * 36),
     status: "pending"
   }
 ];
 
-// Status badge component
 const StatusBadge = ({ status }: { status: MerchantStatus }) => {
   const statusStyles = {
     pending: "bg-yellow-100 text-yellow-800",
@@ -192,7 +185,6 @@ const MerchantApprovalTable = () => {
   const handleApprove = (id: string) => {
     setIsProcessing(true);
     
-    // Simulate API call for approval
     setTimeout(() => {
       setMerchants(merchants.map(merchant => 
         merchant.id === id ? { ...merchant, status: "approved" } : merchant
@@ -211,7 +203,6 @@ const MerchantApprovalTable = () => {
   const handleReject = (id: string) => {
     setIsProcessing(true);
     
-    // Simulate API call for rejection
     setTimeout(() => {
       setMerchants(merchants.map(merchant => 
         merchant.id === id ? { ...merchant, status: "rejected" } : merchant
@@ -291,7 +282,6 @@ const MerchantApprovalTable = () => {
           </Table>
         </div>
         
-        {/* Merchant Details Dialog */}
         {selectedMerchant && (
           <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
             <DialogContent className="sm:max-w-lg">
