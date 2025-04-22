@@ -86,11 +86,13 @@ const DirectorVerificationStep = ({ onNext, onBack }: DirectorVerificationStepPr
     }, 2000);
   };
 
-  const handleOpenConsentPage = () => {
-    // In a real app, this would open the iGree BVN consent page in a new tab
-    window.open('https://example.com/igree-consent', '_blank');
+  const handleOpenConsentPage = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default form submission
     
-    // Simulate returning with consent granted
+    // Instead of opening in a new tab, simulate the consent process directly
+    // In a real implementation, this would use a modal or iframe instead of navigation
+    
+    // Simulate consent process delay
     setTimeout(() => {
       setConsentGranted(true);
       form.setValue('bvnConsent', true);
@@ -109,7 +111,7 @@ const DirectorVerificationStep = ({ onNext, onBack }: DirectorVerificationStepPr
       </div>
 
       <Form {...form}>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
           <FormField
             control={form.control}
             name="bvn"
