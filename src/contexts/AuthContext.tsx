@@ -75,15 +75,15 @@ const mockUsers: User[] = [
     email: "pending@example.com",
     businessName: "Pending Company",
     phoneNumber: "555-5678",
-    isRegisteredWithCAC: "no",
+    isRegisteredWithCAC: "yes", // Updated to yes since we only allow CAC registered businesses
     ownerFirstName: "Jane",
     ownerLastName: "Pending",
     bvn: "10987654321",
-    idType: "nin",
-    idNumber: "12345678901",
-    idDocumentUrl: "/placeholder.svg",
-    personalBankAccount: "9876543210",
-    personalBankName: "gtb",
+    cacNumber: "BN789012",
+    directorName: "Jane Pending",
+    directorBVN: "10987654321",
+    businessBankAccount: "9876543210",
+    businessBankName: "gtb",
     approved: false,
     role: "merchant"
   }
@@ -137,7 +137,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           };
           
           // In a real app, we would send this to the server
-          // Here we just simulate successful registration
+          // For demo, add the user to our mock list
+          mockUsers.push(newUser);
+          
+          // Auto-login the user after registration
+          setUser(newUser);
+          localStorage.setItem("skyPayUser", JSON.stringify(newUser));
+          
           resolve();
         }
       }, 800);
